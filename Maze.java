@@ -24,18 +24,15 @@ public class Maze extends JFrame {
 	
 	public void populate(int [][] myMaze) {
 		for (int row = 0; row < myMaze.length; row++) {
-            for (int col = 0; col < myMaze[row].length; col++) {
-                if (rand.nextDouble() < 0.5) {
-                    myMaze[row][col] = 1;
-                } else {
-                    myMaze[row][col] = 0;
+           		for (int col = 0; col < myMaze[row].length; col++) {
+               			if (rand.nextDouble() < 0.5) {
+                    			myMaze[row][col] = 1;
+               		      } else {
+                   			myMaze[row][col] = 0;
                 }
             }
         }
-		
-		int lastItem = myMaze[myMaze.length - 1][myMaze[myMaze.length - 1].length - 1];
-		lastItem = 2;
-	}
+}
 	
 	
   @Override
@@ -49,7 +46,6 @@ public class Maze extends JFrame {
 			  
 			  switch(myMaze[row][col]) {
 			  	case 1: color = Color.BLACK; break;
-			  	case 2: color = Color.RED; break;
 			  	default: color = Color.WHITE;
 			  }
 			  g.setColor(color);
