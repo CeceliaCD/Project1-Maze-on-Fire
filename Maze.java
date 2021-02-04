@@ -12,7 +12,15 @@ public class Maze extends JFrame {
 	
 	Random rand = new Random();
 	
+    
 	
+	public Maze() {
+		setTitle("Maze");
+		setSize(640, 480);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+	}
 	
 	public void populate(int [][] myMaze) {
 		for (int row = 0; row < myMaze.length; row++) {
@@ -27,15 +35,6 @@ public class Maze extends JFrame {
 		
 		int lastItem = myMaze[myMaze.length - 1][myMaze[myMaze.length - 1].length - 1];
 		lastItem = 2;
-	}
-    
-	
-	public Maze() {
-		setTitle("Maze");
-		setSize(640, 480);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 	}
 	
 	
