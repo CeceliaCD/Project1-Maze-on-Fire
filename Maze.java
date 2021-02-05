@@ -56,14 +56,31 @@ public class Cell extends Observable{
 		visited = true;
 	}
 
-	public Type getType(){
-		return this.type;
-	}
-
 	public boolean isWall(){
 		return (this.type == type.WALL);
 	}
 
+	public boolean isFire(){
+		return (this.type == type.FIRE);
+	}
+
+	public Type getType(){
+		return this.type;
+	}
+
+	public void setType(Type type){
+		Color color;
+		this.rectangle.setFill(color);
+		this.type = type;
+	}
+
+	public void clearCell(){
+		this.setType(Type.EMPTY);
+	}
+
+	public void drawCell(boolean stroke){
+		this.rectangle.setStroke((stroke) ? Color.BLACK : null);
+	}
 }
 
 
@@ -73,14 +90,21 @@ public class Maze extends JFrame {
 	
 	final int DIM = 50;
 	Cell[][] myMaze= new Cell[][]();
+
+	private Stack<Cell> stack;
+	private ArrayList<Cell> unvisitedCells;
+	private ArrayList<Cell> container;
+	//don't know how to isolate the left-upper cell
+	//and right lower cell upon generating
 	Cell start;
+	Cell currCell;
 	Cell goal;
 	int counter = 0;
 	
 	Random rand = new Random();
 	
     
-	
+	//should initialize the maze
 	public Maze(int dimension, int cellsize) {
 		setTitle("Maze");
 		setSize(640, 480);
@@ -89,7 +113,7 @@ public class Maze extends JFrame {
 
 		this.DIM = dimension;
 		this.myMaze = new Cell[dimension][dimension];
-		Random rand = new Random();
+		
 
 		for (int row = 0; row < myMaze.length; row++) {
            		for (int col = 0; col < myMaze[row].length; col++) {
@@ -100,16 +124,20 @@ public class Maze extends JFrame {
         }
 		
 	}
-	
+
+	//
 	public void generateMaze(Cell currCell) {
 		Random rand = new Random();
+		this.currCell = currCell;
 		currCell.visit();
 		count++;
 
 
 	}
 
-//advancingFire
+	public Cell[][] getMaze(){
+		return this.myMaze;
+	}
 
 //checkNeighbor
 public Cell checkNeighbor(){
@@ -128,30 +156,52 @@ public Cell checkNeighbor(){
 
   }
 
+public Cell getStart(){
+	return this.start;
+}
 
+public Cell getGoal(){
+	return this.goal;
+}
 
+// Need to add advancingFire method
+
+//Need to call rand num generator to indicate the wall is up
+//Intend to use this method to reset the walls
+public void addRandomWalls(){
+	Random rand = new Random();
+	Cell cell;
+
+	for(int row=0; row<this.DIM; row++){
+		for(int col=0; col<this.DIM; col++){
+			cell = myMaze[col][row];
+			if(cell.getType() == Cell.Type.WALL){
+				cell.setType(Cell.Type.EMPTY);
+			}
+		}
+	}
+}
 	
-	
-  @Override
-  public void paint(Graphics g)
-  {
-	  g.translate(50, 50);
+//   @Override
+//   public void paint(Graphics g)
+//   {
+// 	  g.translate(50, 50);
 	  
-	  for(int row = 0; row < myMaze.length; row++) {
-		  for(int col = 0; col < myMaze[0].length; col++) {
-			  Color color;
+// 	  for(int row = 0; row < myMaze.length; row++) {
+// 		  for(int col = 0; col < myMaze[0].length; col++) {
+// 			  Color color;
 			  
-			  switch(myMaze[row][col]) {
-			  	case 1: color = Color.BLACK; break;
-			  	default: color = Color.WHITE;
-			  }
-			  g.setColor(color);
-			  g.fillRect(30 * col, 30 * row, 30, 30);
-			  g.setColor(Color.BLACK);
-			  g.drawRect(30 * col, 30 * row, 30, 30);
-		  }
-	  }
-  }
+// 			  switch(myMaze[row][col]) {
+// 			  	case 1: color = Color.BLACK; break;
+// 			  	default: color = Color.WHITE;
+// 			  }
+// 			  g.setColor(color);
+// 			  g.fillRect(30 * col, 30 * row, 30, 30);
+// 			  g.setColor(Color.BLACK);
+// 			  g.drawRect(30 * col, 30 * row, 30, 30);
+// 		  }
+// 	  }
+//   }
 
  
   		public static void main(String[] args) {
