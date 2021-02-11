@@ -14,7 +14,7 @@ import java.util.Stack;
 public class Cell extends Observable{
 	int x;
 	int y;
-	boolean[] dir = new boolean[4];//directions up, down, left and right
+	boolean[] dir = new boolean[4]; //directions up, down, left and right
 	boolean visited;
 
 	private final Rectangle rectangle;
@@ -32,12 +32,12 @@ public class Cell extends Observable{
 	public Cell(int x, int y, int cellSpace){
 		this.x = x;
 		this.y = y;
-		//this.cellSpace = cellSpace;
-		this.type = Type.EMPTY;
+		//this.cellSpace = cellSpace; //not sure if should be included yet
+		this.type = Type.EMPTY; //all cells will be empty until we run code
 
 		private final Map<Type, Color> typeMap;
 		
-		dir[0] = false;
+		dir[0] = false; //our agent is not moving yet
 		dir[1] = false;
 		dir[2] = false;
 		dir[3] = false;
@@ -79,7 +79,7 @@ public class Cell extends Observable{
 	}
 
 	public void drawCell(boolean stroke){
-		this.rectangle.setStroke((stroke) ? Color.BLACK : null);
+		this.rectangle.setStroke((stroke) ? Color.BLACK : null); //draw out the perimeter of each cell in maze
 	}
 }
 
@@ -94,11 +94,12 @@ public class Maze extends JFrame {
 	private Stack<Cell> stack;
 	private ArrayList<Cell> unvisitedCells;
 	private ArrayList<Cell> container;
-	//don't know how to isolate the left-upper cell
-	//and right lower cell upon generating
-	Cell start;
+	
+	
+	Cell start; //don't know how to isolate the left-upper cell
+	Cell goal; //and right lower cell upon generating
 	Cell currCell;
-	Cell goal;
+	
 	int counter = 0;
 	
 	Random rand = new Random();
@@ -125,7 +126,7 @@ public class Maze extends JFrame {
 		
 	}
 
-	//
+	//to make it all come together once generated
 	public void generateMaze(Cell currCell) {
 		Random rand = new Random();
 		this.currCell = currCell;
@@ -139,82 +140,82 @@ public class Maze extends JFrame {
 		return this.myMaze;
 	}
 
-//checkNeighbor
-public Cell checkNeighbor(){
+	//checkNeighbor
+	public Cell checkNeighbor(){
 	
-}
+	}
 
- public void DFS(){
+	public void DFS(){
 
-  }
+	}
 
-  public void BFS(){
+	public void BFS(){
 
-  }
+	}
 
-  public void AStar(){
+	public void AStar(){
 
-  }
+	}
 
-public Cell getStart(){
-	return this.start;
-}
+	public Cell getStart(){
+		return this.start;
+	}
 
-public Cell getGoal(){
-	return this.goal;
-}
+	public Cell getGoal(){
+		return this.goal;
+	}
 
-// Need to add advancingFire method
+	// Need to add advancingFire method
 
-//Need to call rand num generator to indicate the wall is up
-//Intend to use this method to reset the walls
-public void addRandomWalls(){
-	Random rand = new Random();
-	Cell cell;
+	//Need to call rand num generator to indicate the wall is up
+	//Intend to use this method to reset the walls
+	public void addRandomWalls(){
+		Random rand = new Random();
+		Cell cell;
 
-	for(int row=0; row<this.DIM; row++){
-		for(int col=0; col<this.DIM; col++){
-			cell = myMaze[col][row];
-			if(cell.getType() == Cell.Type.WALL){
-				cell.setType(Cell.Type.EMPTY);
+		for(int row=0; row<this.DIM; row++){
+			for(int col=0; col<this.DIM; col++){
+				cell = myMaze[col][row];
+				if(cell.getType() == Cell.Type.WALL){
+					cell.setType(Cell.Type.EMPTY);
+				}
 			}
 		}
 	}
-}
-	
-//   @Override
-//   public void paint(Graphics g)
-//   {
-// 	  g.translate(50, 50);
-	  
-// 	  for(int row = 0; row < myMaze.length; row++) {
-// 		  for(int col = 0; col < myMaze[0].length; col++) {
-// 			  Color color;
-			  
-// 			  switch(myMaze[row][col]) {
-// 			  	case 1: color = Color.BLACK; break;
-// 			  	default: color = Color.WHITE;
-// 			  }
-// 			  g.setColor(color);
-// 			  g.fillRect(30 * col, 30 * row, 30, 30);
-// 			  g.setColor(Color.BLACK);
-// 			  g.drawRect(30 * col, 30 * row, 30, 30);
-// 		  }
-// 	  }
-//   }
+		
+	//   @Override
+	//   public void paint(Graphics g)
+	//   {
+	// 	  g.translate(50, 50);
+		
+	// 	  for(int row = 0; row < myMaze.length; row++) {
+	// 		  for(int col = 0; col < myMaze[0].length; col++) {
+	// 			  Color color;
+				
+	// 			  switch(myMaze[row][col]) {
+	// 			  	case 1: color = Color.BLACK; break;
+	// 			  	default: color = Color.WHITE;
+	// 			  }
+	// 			  g.setColor(color);
+	// 			  g.fillRect(30 * col, 30 * row, 30, 30);
+	// 			  g.setColor(Color.BLACK);
+	// 			  g.drawRect(30 * col, 30 * row, 30, 30);
+	// 		  }
+	// 	  }
+	//   }
 
  
-  		public static void main(String[] args) {
-  			SwingUtilities.invokeLater(new Runnable() {
+  	public static void main(String[] args) {
+  		SwingUtilities.invokeLater(new Runnable() {
   				
-  				@Override
-  				public void run() {
-  					Maze maze = new Maze();
-  					maze.setVisible(true);
-  				}
+  			@Override
+  			public void run() {
+  				Maze maze = new Maze();
+  				maze.setVisible(true);
+  			}
   				
-  			});
-  		}
+  		});
+  	}
 
 
 }
