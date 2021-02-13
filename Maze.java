@@ -1,9 +1,11 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import java.util.Random;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Random;
 import java.lang.Math;
 import java.util.HashMap;
 import java.util.Map;
@@ -167,10 +169,18 @@ public class Maze extends JFrame {
 
 	// Need to add advancingFire method
 
+	public int probabilityOccupied(){
+		int min = 0;
+		int max = 1;
+
+		Random rand = new Random();
+		return rand.nextInt(max-min) + min;
+	}
+
 	//Need to call rand num generator to indicate the wall is up
 	//Intend to use this method to reset the walls
 	public void addRandomWalls(){
-		Random rand = new Random();
+		
 		Cell cell;
 
 		for(int row=0; row<this.DIM; row++){
@@ -179,6 +189,7 @@ public class Maze extends JFrame {
 				if(cell.getType() == Cell.Type.WALL){
 					cell.setType(Cell.Type.EMPTY);
 				}
+				
 			}
 		}
 	}
