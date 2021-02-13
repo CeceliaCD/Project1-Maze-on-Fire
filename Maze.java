@@ -128,7 +128,7 @@ public class Maze extends JFrame {
 		
 	}
 
-	//to make it all come together once generated
+	//to make it all come together once generated...or maybe should call it update
 	public void generateMaze(Cell currCell) {
 		Random rand = new Random();
 		this.currCell = currCell;
